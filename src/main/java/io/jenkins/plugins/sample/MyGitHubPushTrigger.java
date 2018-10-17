@@ -1,6 +1,5 @@
 package io.jenkins.plugins.sample;
 
-import com.cloudbees.jenkins.Credential;
 import com.cloudbees.jenkins.GitHubPushTrigger;
 import com.cloudbees.jenkins.GitHubRepositoryName;
 import com.cloudbees.jenkins.GitHubRepositoryNameContributor;
@@ -28,7 +27,6 @@ import org.kohsuke.accmod.restrictions.NoExternalUse;
 import org.kohsuke.stapler.AncestorInPath;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
@@ -76,10 +74,6 @@ public class MyGitHubPushTrigger extends GitHubPushTrigger {
         private final transient SequentialExecutionQueue queue =
                 new SequentialExecutionQueue(Executors.newSingleThreadExecutor(threadFactory()));
 
-        private transient String hookUrl;
-
-        private transient List<Credential> credentials;
-
         @Inject
         private transient GitHubHookRegisterProblemMonitor monitor;
 
@@ -118,20 +112,6 @@ public class MyGitHubPushTrigger extends GitHubPushTrigger {
         @Override
         public String getDisplayName() {
             return "GitHub hook trigger for GITScm polling";
-        }
-
-        /**
-         * Used to cleanup after migration
-         */
-        public void clearDeprecatedHookUrl() {
-            this.hookUrl = null;
-        }
-
-        /**
-         * Used to cleanup after migration
-         */
-        public void clearCredentials() {
-            this.credentials = null;
         }
 
         /**
