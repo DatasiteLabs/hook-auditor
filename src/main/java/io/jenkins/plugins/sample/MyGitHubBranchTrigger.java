@@ -26,10 +26,10 @@ public class MyGitHubBranchTrigger extends GitHubBranchTrigger {
     }
 
     @Override
-    public void start(Job<?, ?> job, boolean newInstance) {
+    public void start(Job item, boolean newInstance) {
         LOGGER.log(Level.FINER, "MyGitHubBranchTrigger().start: {0} {1}",
-                new Object[]{ job, newInstance });
-        super.start(job, newInstance);
+                new Object[]{item, newInstance});
+        super.start(item, newInstance);
     }
 
     @Override

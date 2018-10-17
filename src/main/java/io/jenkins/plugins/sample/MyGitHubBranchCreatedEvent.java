@@ -1,17 +1,12 @@
 package io.jenkins.plugins.sample;
 
-import com.github.kostyasha.github.integration.branch.GitHubBranch;
 import com.github.kostyasha.github.integration.branch.GitHubBranchCause;
-import com.github.kostyasha.github.integration.branch.GitHubBranchRepository;
-import com.github.kostyasha.github.integration.branch.GitHubBranchTrigger;
 import com.github.kostyasha.github.integration.branch.events.GitHubBranchEventDescriptor;
 import com.github.kostyasha.github.integration.branch.events.impl.GitHubBranchCreatedEvent;
+import com.github.kostyasha.github.integration.generic.GitHubBranchDecisionContext;
 import hudson.Extension;
-import hudson.model.TaskListener;
 import org.jenkinsci.Symbol;
-import org.kohsuke.github.GHBranch;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,14 +18,14 @@ public class MyGitHubBranchCreatedEvent extends GitHubBranchCreatedEvent {
     public MyGitHubBranchCreatedEvent() {
         super();
         LOGGER.log(Level.FINER, "MyGitHubBranchCreatedEvent(): {0}",
-                new Object[]{ this });
+                new Object[]{this});
     }
 
     @Override
-    public GitHubBranchCause check(GitHubBranchTrigger trigger, GHBranch remoteBranch, @CheckForNull GitHubBranch localBranch, GitHubBranchRepository locaRepo, TaskListener listener) throws IOException {
+    public GitHubBranchCause check(@Nonnull GitHubBranchDecisionContext context) throws IOException {
         LOGGER.log(Level.FINER, "MyGitHubBranchCreatedEvent.check: {0} {1} {2} {3} {4}",
-                new Object[]{ trigger, remoteBranch, localBranch, locaRepo, listener });
-        return super.check(trigger, remoteBranch, localBranch, locaRepo, listener);
+                new Object[]{context.getTrigger(), context.getRemoteBranch(), context.getLocalBranch(), context.getLocalRepo(), context.getListener()});
+        return super.check(context);
     }
 
     @Symbol("MyBranchCreated")

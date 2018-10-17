@@ -1,12 +1,10 @@
 package io.jenkins.plugins.sample;
 
-import hudson.model.TaskListener;
+import com.github.kostyasha.github.integration.generic.GitHubPRDecisionContext;
 import org.jenkinsci.plugins.github.pullrequest.GitHubPRCause;
-import org.jenkinsci.plugins.github.pullrequest.GitHubPRPullRequest;
-import org.jenkinsci.plugins.github.pullrequest.GitHubPRTrigger;
 import org.jenkinsci.plugins.github.pullrequest.events.impl.GitHubPRCloseEvent;
-import org.kohsuke.github.GHPullRequest;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +20,10 @@ public class MyGitHubPRCloseEvent extends GitHubPRCloseEvent {
     }
 
     @Override
-    public GitHubPRCause check(GitHubPRTrigger gitHubPRTrigger, GHPullRequest remotePR, GitHubPRPullRequest localPR, TaskListener listener) throws IOException {
+//    public GitHubPRCause check(GitHubPRTrigger gitHubPRTrigger, GHPullRequest remotePR, GitHubPRPullRequest localPR, TaskListener listener) throws IOException {
+    public GitHubPRCause check(@Nonnull GitHubPRDecisionContext prDecisionContext) throws IOException {
         LOGGER.log(Level.FINER, "MyGitHubPRCloseEvent.check: {0} {1} {2} {3}",
-                new Object[]{ gitHubPRTrigger, remotePR, localPR, listener });
-        return super.check(gitHubPRTrigger, remotePR, localPR, listener);
+                new Object[]{prDecisionContext.getTrigger(), prDecisionContext.getRemotePR(), prDecisionContext.getLocalPR(), prDecisionContext.getListener()});
+        return super.check(prDecisionContext);
     }
 }
