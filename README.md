@@ -9,6 +9,17 @@ java 8
 sdk use java 8.0.181-zulu
 ```
 
+ngrok
+
+located in ./tools
+
+1. add auth token to ngrok before running
+1. get url from http://localhost:4040/ and add to jenkins url config after startup
+
+```bash
+./tools/ngrok start --all --config ~/.ngrok2/ngrok.yml --config tools/ngrok.yml
+```
+
 ## running
 
 ```bash

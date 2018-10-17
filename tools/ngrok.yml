@@ -1,0 +1,7 @@
+log_level: debug
+log_format: json
+tunnels:
+  jenkins:
+    proto: http
+    addr: 8080
+    bind_tls: false
