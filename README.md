@@ -1,3 +1,6 @@
+> [!NOTE]
+> I haven't worked on this or used it for a very long time, there have been many improvements in how Jenkins processes Git hooks as well as plugin updates. I am archiving.
+
 # hook-auditor
 auditor plugin to watch the many github plugins in jenkins and debug
 
